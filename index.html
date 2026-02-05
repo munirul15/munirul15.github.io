@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munirul Alam - PhD Student | Mississippi State University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f4c75;
+            --highlight: #3282b8;
+            --text: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --background: #0a0a0f;
+            --card-bg: #16161f;
+            --border: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(50,130,184,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.1); opacity: 0.08; }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .contact-links a {
+            color: var(--highlight);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .contact-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--highlight);
+            transition: width 0.3s ease;
+        }
+
+        .contact-links a:hover::after {
+            width: 100%;
+        }
+
+        .contact-links a:hover {
+            color: var(--text);
+        }
+
+        nav {
+            margin: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+            padding: 1.5rem 0;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            letter-spacing: 0.03em;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--highlight);
+        }
+
+        section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            animation: fadeInSection 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInSection {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { animation-delay: 0.8s; }
+        section:nth-child(2) { animation-delay: 1s; }
+        section:nth-child(3) { animation-delay: 1.2s; }
+        section:nth-child(4) { animation-delay: 1.4s; }
+        section:nth-child(5) { animation-delay: 1.6s; }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--highlight), transparent);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .bio {
+            font-size: 1.2rem;
+            line-height: 1.9;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(50, 130, 184, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+        }
+
+        .info-item {
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-item strong {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .interest-tag {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--card-bg) 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interest-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(50,130,184,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .interest-tag:hover::before {
+            left: 100%;
+        }
+
+        .interest-tag:hover {
+            border-color: var(--highlight);
+            transform: translateY(-4px);
+        }
+
+        .research-item,
+        .project-item {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .research-item:hover,
+        .project-item:hover {
+            border-left-color: var(--highlight);
+            transform: translateX(8px);
+            box-shadow: -4px 0 12px rgba(50, 130, 184, 0.1);
+        }
+
+        .research-item h3,
+        .project-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--highlight);
+            font-weight: 600;
+        }
+
+        .authors {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .research-item ul,
+        .project-item ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .research-item li,
+        .project-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .research-item li::before,
+        .project-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--highlight);
+            font-size: 1.2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--highlight);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skill-category p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .experience-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .experience-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--highlight);
+        }
+
+        .experience-content h4 {
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .award-card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .award-card:hover {
+            border-color: var(--highlight);
+            transform: translateY(-4px);
+        }
+
+        .award-card h4 {
+            color: var(--highlight);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .award-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 8rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .experience-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <div class="grain-overlay"></div>
+    
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Munirul Alam</h1>
+                <p class="subtitle">PhD Student & Graduate Research Assistant | Industrial and Systems Engineering | Mississippi State University</p>
+                <div class="contact-links">
+                    <a href="mailto:munirulalam15@gmail.com">munirulalam15@gmail.com</a>
+                    <a href="mailto:ma3671@msstate.edu">ma2206@msstate.edu</a>
+                    <!-- <a href="https://github.com/munirul15" target="_blank">github.com/munirul15</a> -->
+                    <!-- <a href="tel:+8801521572805">+880 1521-572805</a> -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+            </ul>
+        </nav>
+
+        <section id="about">
+            <h2>About</h2>
+            <div class="about-grid">
+                <div class="bio">
+                    <p>I am a PhD student and Graduate Research Assistant in the Department of Industrial and Systems Engineering at Mississippi State University, starting January 2026. I completed my B.Sc. in Mechanical Engineering from Bangladesh University of Engineering and Technology (BUET) in March 2025.</p>
+                    <!-- <p style="margin-top: 1.5rem;">My research interests lie at the intersection of computational materials science, operations research, and machine learning. I am particularly passionate about multiscale modeling approaches, from molecular dynamics simulations to continuum-scale analysis, and applying data-driven methods to solve complex engineering problems. My work spans high-entropy alloys, network optimization, and cyber-physical systems.</p> -->
+                </div>
+                <div>
+                    <div class="info-card">
+                        <h3>Education</h3>
+                        <div class="info-item">
+                            <strong>CURRENT</strong>
+                            <div>Ph.D. in Industrial and Systems Engineering</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.3rem;">Mississippi State University</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">January 2026 - Present</div>
+                        </div>
+                        <div class="info-item">
+                            <strong>PREVIOUS</strong>
+                            <div>B.Sc. in Mechanical Engineering</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.3rem;">Bangladesh University of Engineering and Technology</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">February 2020 - March 2025</div>
+                        </div>
+                        <div class="info-item">
+                            <strong>LOCATION</strong>
+                            <div>Starkville, Mississippi, USA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interests">
+            <h2>Research Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-tag">Reinforcement Learning</div>
+                <div class="interest-tag">Systems Simulation</div>
+                <div class="interest-tag">Deep Learning</div>
+                <div class="interest-tag">Supply Chain</div>
+                <div class="interest-tag">Operations Research</div>
+                <div class="interest-tag">Cyber Physical Systems</div>
+            </div>
+        </section>
+
+        <section id="research">
+            <h2>Research Experience</h2>
+            
+            <div class="research-item">
+                <h3>Investigating Creep Behavior and Short-Range Ordering in AlₓCoCrFeNiᵧ High-Entropy Alloy: A Data Driven Molecular Dynamics Study</h3>
+                <p class="authors"><b>Munirul Alam</b>, Afia Zaman, Anik Shabab Soudha, and Afsar Ali</p>
+                <div>
+                    <span class="badge">RISE Student Research Grant (S2024-01-062)</span>
+                    <span class="badge">ASME IMECE 2024 - Undergraduate Expo</span>
+                    <span class="badge">JBRP 2024 Conference</span>
+                </div>
+                <ul>
+                    <li>Analyzed creep behavior at low Al concentration using Molecular Dynamics (MD) simulation</li>
+                    <li>Modeled creep rates under varying pressures and temperatures</li>
+                    <li>Developed multiscale approach to extend the study from nano to continuum scale</li>
+                </ul>
+            </div>
+
+            <div class="research-item">
+                <h3>Optimal Resource Allocation Considering Topographic Effect on Network Interdiction of Unauthorized Immigration</h3>
+                <p class="authors">Ridwan Al Aziz, <b>Munirul Alam</b>, and Jun Zhuang</p>
+                <ul>
+                    <li>Investigated the impact of terrain on illicit network interdiction in Arizona</li>
+                    <li>Applied game theory to simulate topographic effects in network interdiction</li>
+                    <li>Integrated real-world data into a bi-level network optimization model</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Selected Projects</h2>
+            
+            <div class="project-item">
+                <h3>Leo: An Affordable Biomechanically Inspired Quadruped Robot With Cognitive Abilities</h3>
+                <p class="authors">Jubaer Tanjil Jami, Taskin Mehereen, <b>Munirul Alam</b>, and Mir Tahmidur Rahman</p>
+                <div>
+                    <span class="badge">IEEE PEEIACON 2024</span>
+                </div>
+                <ul>
+                    <li>Designed a quadruped in SolidWorks, optimizing energy efficiency and torque</li>
+                    <li>Implemented Gait Algorithm using ROS and Arduino</li>
+                    <li>Integrated real-time image and audio processing with ROS Vosk, YOLO v4, and ChatGPT API for cognitive abilities</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <h3>Design of a Dimpled Surface Plate Heat Exchanger</h3>
+                <p class="authors"><b>Munirul Alam</b>, Mir Tahmidur Rahman, Tamal Kirttonia, and Samarpan Biswas</p>
+                <ul>
+                    <li>Developed a dimpled heat exchanger in SolidWorks for enhanced heat transfer</li>
+                    <li>Simulated performance in MATLAB; produced with local materials for cost-efficiency</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <h3>Feasibility Analysis of Solar Heat Collection and Waste Heat Utilization Using Adsorption Chiller</h3>
+                <p class="authors"><b>Munirul Alam</b>, Asif Iqbal Apurba, Mijanur Rahaman, and Amlan Chowdhury</p>
+                <ul>
+                    <li>Performed feasibility study on integrating adsorption chiller and solar heat collector for waste heat utilization</li>
+                    <li>Engaged in design collaboration and supplier communication for system components</li>
+                    <li>Conducted cost analysis to evaluate the project's economic viability</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <p>Python, C, C++, MATLAB</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Simulation</h3>
+                    <p>LAMMPS, OVITO, Atomsk</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Optimization</h3>
+                    <p>Gurobi, Pyomo, CPLEX</p>
+                </div>
+                <div class="skill-category">
+                    <h3>CAD</h3>
+                    <p>SolidWorks, AutoCAD</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Visualization</h3>
+                    <p>Matplotlib, XMGrace, OriginPro, Tecplot</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Graphics</h3>
+                    <p>Inkscape, Adobe Illustrator</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Standardized Tests</h3>
+                <div class="skills-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="skill-category">
+                        <h3>TOEFL</h3>
+                        <p><strong>Overall: 108/120</strong><br>
+                        Reading: 30, Listening: 27<br>
+                        Speaking: 25, Writing: 26</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>GRE</h3>
+                        <p><strong>Overall: 315/340</strong><br>
+                        Verbal: 155, Quant: 160<br>
+                        AWA: 3.5</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-date">January 2025 - Present</div>
+                <div class="experience-content">
+                    <h3>Graduate Research Assistant</h3>
+                    <h4>Department of Industrial and Systems Engineering, Mississippi State University</h4>
+                    <ul>
+                        <li>Conducting research in operations research and optimization</li>
+                        <li>Applying computational methods to industrial and systems engineering problems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-date">September 2024 - Present</div>
+                <div class="experience-content">
+                    <h3>Vice President</h3>
+                    <h4>Multiscale Mechanical Modeling and Research Network (MMMRN)</h4>
+                    <ul>
+                        <li>Facilitated communication with professors and alumni globally</li>
+                        <li>Organized webinars with leading academics to benefit budding researchers</li>
+                        <li>Oversaw student mentoring programs across sub-committees</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-date">June 2024</div>
+                <div class="experience-content">
+                    <h3>In-Plant Trainee</h3>
+                    <h4>Square Pharmaceuticals PLC, Dhaka Unit</h4>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-date">February 2020 - September 2024</div>
+                <div class="experience-content">
+                    <h3>Member</h3>
+                    <h4>Multiscale Mechanical Modeling and Research Network (MMMRN)</h4>
+                    <ul>
+                        <li>Acquired foundational knowledge in research methodology and Molecular Dynamics simulation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-date">July 2017 - February 2019</div>
+                <div class="experience-content">
+                    <h3>President</h3>
+                    <h4>Rajuk Math Circle</h4>
+                    <ul>
+                        <li>Organized camps for Bangladesh Mathematical Olympiad (BdMO) preparation</li>
+                        <li>Promoted student participation in national Olympiads and fostered collaborations with other Math Clubs</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <h2>Awards & Achievements</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <h4>Education Board Merit Scholarship</h4>
+                    <p>Talentpool Scholarship</p>
+                </div>
+                <div class="award-card">
+                    <h4>Bangladesh Physics Olympiad</h4>
+                    <p>National Champion & Camper (2016-2019)</p>
+                </div>
+                <div class="award-card">
+                    <h4>National High School Programming Contest</h4>
+                    <p>Champion - 2018</p>
+                </div>
+                <div class="award-card">
+                    <h4>Bangladesh Biology Olympiad</h4>
+                    <p>National Participant (2016, 2018)</p>
+                </div>
+                <div class="award-card">
+                    <h4>Bangladesh Junior Science Olympiad</h4>
+                    <p>National Participant (2016, 2017)</p>
+                </div>
+                <div class="award-card">
+                    <h4>Bangladesh Physics Olympiad</h4>
+                    <p>Special Mention - 2018</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Munirul Alam.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Update active state
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Intersection Observer for scroll-based navigation highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '-100px 0px -50% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+  
